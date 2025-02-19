@@ -5,6 +5,7 @@
 .products-grid{
     display:grid;
     grid-template-columns: repeat(8,1fr);
+    /* z-index: 1000; */
 }
 
 @media (max-width: 2000px) {
