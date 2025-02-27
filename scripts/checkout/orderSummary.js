@@ -7,17 +7,14 @@ import {renderCheckoutHeader} from './checkoutheader.js'
 import { deliveryDateFormatter } from '../utils/dateformater.js'
 
 
-
-
 export function renderOrderSummary(){
-     
+    
     let cartSummaryHTML="";
     cart.forEach((cartItem)=>{
         const productId=cartItem.productId;
         const matchingProduct=getProduct(productId);
         const deliveryOptionId=cartItem.deliveryOptionID;
         const deliveryOption=getDeliveryOptions(deliveryOptionId);
-
 
         const deliveryDateStr=deliveryDateFormatter(deliveryOption.deliveryDays);
 
@@ -47,7 +44,10 @@ export function renderOrderSummary(){
                 </span>
                 <input class="quantity-input quantity-input-${matchingProduct.id}" value="${cartItem.quantity}" min=1 max=100 type="number">
                 <span class="save-button link-primary" data-product-id=${matchingProduct.id}>Save</span>
-                <span class="delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
+                <span class="delete-quantity-link 
+                        link-primary 
+                        js-delete-link-${matchingProduct.id}" 
+                        data-product-id="${matchingProduct.id}">
                 Delete
                 </span>
             </div>
@@ -99,15 +99,17 @@ export function renderOrderSummary(){
     }    
     
     document.querySelector('.js-order-summary').innerHTML=cartSummaryHTML
-
+    
     document.querySelectorAll('.delete-quantity-link').forEach((link)=>{
+
         link.addEventListener('click',()=>{
+            
             removeFromCart(link.dataset.productId);
             // document.querySelector(`.js-cart-container-${link.dataset.productId}`).remove();
             renderOrderSummary();
             renderPaymentSummary();
-            renderCheckoutHeader();
-            
+            // renderCheckoutHeader();
+                     
             
         })
     })

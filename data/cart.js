@@ -37,6 +37,8 @@ export function addToCart(productId){
 
 export function removeFromCart(productId){
     const newcart=[];
+    
+
 
     cart.forEach((item)=>{
         if (item.productId!==productId){
