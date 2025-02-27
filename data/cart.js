@@ -50,3 +50,13 @@ export function updateCartQuantity(){
     })
     return cartQuantity;
 }
+
+
+export function cartQuantityEdit(quantity,id){
+    cart.forEach(item=>{
+        if (item.productId===id){
+            item.quantity=quantity
+}
+}) 
+saveToStorage();
+}
