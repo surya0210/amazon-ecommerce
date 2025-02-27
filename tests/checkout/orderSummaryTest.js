@@ -62,6 +62,9 @@ describe('test suite :render order summary',()=>{
         renderOrderSummary();
         document.querySelector('.js-delete-link-e43638ce-6aa0-4b85-b27f-e1d07eb678c6').click(); 
         document.querySelector('.js-test-container').innerHTML=''
+
+        // expect(localStorage.setItem).toHaveBeenCalledWith('cart','[]')
+        // toHaveBeenCalledWith()
     });
 });
 
