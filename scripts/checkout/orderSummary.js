@@ -106,7 +106,8 @@ export function renderOrderSummary(){
     document.querySelectorAll('.delete-quantity-link').forEach((link)=>{
         link.addEventListener('click',()=>{
             removeFromCart(link.dataset.productId);
-            document.querySelector(`.js-cart-container-${link.dataset.productId}`).remove();
+            // document.querySelector(`.js-cart-container-${link.dataset.productId}`).remove();
+            renderOrderSummary();
             renderPaymentSummary();
             cartQuantity=updateCartQuantity();
             document.querySelector('.return-to-home-link').innerHTML=`${cartQuantity} items`
