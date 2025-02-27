@@ -8,6 +8,7 @@ let productsHTML='';
 
 const addedMessageTimeouts = {};
 
+
 products.forEach(product => {
     productsHTML+=`
             <div class="product-container">
@@ -62,13 +63,15 @@ document.querySelector('.js-products-grid').innerHTML=productsHTML;
 
 
 
-updateCartQuantity();
+let cartQuantity=updateCartQuantity();
+document.querySelector('.cart-quantity').innerHTML=cartQuantity;    
 
 document.querySelectorAll('.js-add-to-cart').forEach(button =>{
     button.addEventListener('click',()=>{
         const productId=button.dataset.productId;
         addToCart(productId);
-        updateCartQuantity();
+        cartQuantity=updateCartQuantity();
+        document.querySelector('.cart-quantity').innerHTML=cartQuantity;
         
         const addedMessage = document.querySelector(
             `.js-added-to-cart-${productId}`
