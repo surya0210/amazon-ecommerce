@@ -1,17 +1,22 @@
-export let cart=JSON.parse(localStorage.getItem('cart'));
+export let cart;
 
 
-if (!cart){
-    cart=[];
+loadFromStorage();
+
+export function loadFromStorage(){
+    cart=JSON.parse(localStorage.getItem('cart')) ||[];
+    if (!cart){
+        cart=[];
+    }
 }
-
 function saveToStorage(){
     localStorage.setItem('cart',JSON.stringify(cart));
 }
 
 
 export function addToCart(productId){
-    const quantity=Number(document.querySelector(`.js-quantiy-selector-${productId}`).value)
+    const el=document.querySelector(`.js-quantiy-selector-${productId}`)
+    const quantity= el?Number(el.value):1;
     let matchingItem;
     cart.forEach(item=>{
         if (productId==item.productId){
