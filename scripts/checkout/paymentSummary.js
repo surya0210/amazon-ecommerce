@@ -4,7 +4,6 @@ import {getProduct} from '../../data/products.js'
 import {getDeliveryOptions} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
 export function renderPaymentSummary(){
-    console.log(cart);
     let productPriceCents=0;
     let shippingPriceCents=0;
     let cartQuantity=0;
@@ -14,9 +13,7 @@ export function renderPaymentSummary(){
         productPriceCents+=product.priceCents*cartItem.quantity;
         
         const deliveryOption=getDeliveryOptions(cartItem.deliveryOptionID);
-        console.log(deliveryOption);
         shippingPriceCents+=deliveryOption.priceCents;
-        
         cartQuantity+=cartItem.quantity;
     })
 

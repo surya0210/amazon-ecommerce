@@ -3,8 +3,10 @@ import {products,getProduct} from '../../data/products.js'
 import formatCurrency from '.././utils/money.js'
 import {renderPaymentSummary} from './paymentSummary.js'
 import {deliveryOptions,getDeliveryOptions} from '../../data/deliveryOptions.js'
+import {renderCheckoutHeader} from './checkoutheader.js'
+import { deliveryDateFormatter } from '../utils/dateformater.js'
 
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
+
 
 
 export function renderOrderSummary(){
@@ -16,9 +18,8 @@ export function renderOrderSummary(){
         const deliveryOptionId=cartItem.deliveryOptionID;
         const deliveryOption=getDeliveryOptions(deliveryOptionId);
 
-        const today=dayjs();
-        const deliveryDate=today.add(deliveryOption.deliveryDays,'days');
-        const deliveryDateStr=deliveryDate.format('dddd, MMMM D');
+
+        const deliveryDateStr=deliveryDateFormatter(deliveryOption.deliveryDays);
 
         cartSummaryHTML+=`
         <div class="cart-item-container js-cart-container-${matchingProduct.id}">
@@ -68,9 +69,7 @@ export function renderOrderSummary(){
     function deliveryOptionsHTML(productId,cartItem){
         let deliverHtml=''
         deliveryOptions.forEach((deliveryOption)=>{
-            const today=dayjs();
-            const deliveryDate=today.add(deliveryOption.deliveryDays,'days');
-            const deliveryDateStr=deliveryDate.format('dddd, MMMM D');
+            const deliveryDateStr=deliveryDateFormatter(deliveryOption.deliveryDays)
             const priceStr= deliveryOption.priceCents
             ===0 
                 ? 'FREE'
@@ -97,10 +96,8 @@ export function renderOrderSummary(){
 
         return deliverHtml;
 
-    }
-
-    let cartQuantity=updateCartQuantity();
-    document.querySelector('.return-to-home-link').innerHTML=`${cartQuantity} items`
+    }    
+    
     document.querySelector('.js-order-summary').innerHTML=cartSummaryHTML
 
     document.querySelectorAll('.delete-quantity-link').forEach((link)=>{
@@ -109,8 +106,9 @@ export function renderOrderSummary(){
             // document.querySelector(`.js-cart-container-${link.dataset.productId}`).remove();
             renderOrderSummary();
             renderPaymentSummary();
-            cartQuantity=updateCartQuantity();
-            document.querySelector('.return-to-home-link').innerHTML=`${cartQuantity} items`
+            renderCheckoutHeader();
+            
+            
         })
     })
 
@@ -125,10 +123,12 @@ export function renderOrderSummary(){
             document.querySelector(`.js-cart-container-${link.dataset.productId}`).classList.remove('is-editing-quantity');
             const newQuantity=Number(document.querySelector(`.quantity-input-${link.dataset.productId}`).value)
             cartQuantityEdit(newQuantity,link.dataset.productId)
-            let cartQuantity=updateCartQuantity();
-            document.querySelector('.return-to-home-link').innerHTML=`${cartQuantity} items`
-            document.querySelector(`.quantity-label-${link.dataset.productId}`).innerHTML=newQuantity
+            // updateCartQuantity();
+            // document.querySelector('.return-to-home-link').innerHTML=`${cartQuantity} items`
+            // document.querySelector(`.quantity-label-${link.dataset.productId}`).innerHTML=newQuantity
             renderPaymentSummary();
+            renderOrderSummary();
+            renderCheckoutHeader();
         })
     })
 
@@ -139,6 +139,7 @@ export function renderOrderSummary(){
             updateDeliveryOption(productId,deliveryOptionId);
             renderOrderSummary();
             renderPaymentSummary();
+            renderCheckoutHeader();
         })
     })
 }
