@@ -107,9 +107,16 @@
     margin-bottom: 10px;
   }
 
+
+
 .product-quantity-container {
     margin-bottom: 17px;
   }
+
+.product-spacer {
+    flex: 1;
+  }
+  
 
 .add-to-cart-button {
     width: 100%;
