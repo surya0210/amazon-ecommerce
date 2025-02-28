@@ -2,7 +2,7 @@
 
 
 function logThis(){
-    console.log(this);
+    // console.log(this);
 }
 
 logThis() //will console undefined as this is undefined in this case
