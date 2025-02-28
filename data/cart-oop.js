@@ -90,10 +90,4 @@ cart.loadFromStorage();
 
 const businessCart=Cart('cart-business');
 businessCart.loadFromStorage();
-console.log(cart,businessCart);
-
-
-
-
-
-
+// console.log(cart,businessCart);
