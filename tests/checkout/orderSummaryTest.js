@@ -1,4 +1,5 @@
 import { cart, loadFromStorage } from '../../data/cart.js';
+import { loadProducts } from '../../data/products.js';
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js'
 
 // 1.how the page looks
@@ -11,9 +12,11 @@ describe('test suite :render order summary',()=>{
     afterEach(()=>{
         console.log("Ending the test");
     })
-
-    beforeAll(()=>{
-        console.log("Starting the Test Cases");
+    // done makes the test wait till loadProdcuts
+    beforeAll((done)=>{
+        loadProducts(()=>{
+            done();
+        });
     })
     afterAll(()=>{
         console.log("End case execution completed");
