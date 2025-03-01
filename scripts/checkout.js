@@ -8,22 +8,35 @@ import {loadProducts,loadProductsFetch} from '../data/products.js'
 import { loadCart } from '../data/cart.js'
 // import '../data/cart-class.js';
 
+async function loadPage(){
+    await loadProductsFetch();
 
-// the values which are set in resolve will come into values in then
-Promise.all([
-    loadProductsFetch(),
-    new Promise((resolve)=>{
-        
-        loadCart(()=>{
-            resolve('value2');
-        })
-    })
-]).then((values)=>{
+    await new Promise((resolve)=>{
+                loadCart(()=>{
+                    resolve('value2');
+                })});
     renderOrderSummary();
     renderPaymentSummary();
     renderCheckoutHeader();
+}
 
-});
+
+loadPage();
+// the values which are set in resolve will come into values in then
+// Promise.all([
+//     loadProductsFetch(),
+//     new Promise((resolve)=>{
+        
+//         loadCart(()=>{
+//             resolve('value2');
+//         })
+//     })
+// ]).then((values)=>{
+//     renderOrderSummary();
+//     renderPaymentSummary();
+//     renderCheckoutHeader();
+
+// });
 
 // new Promise((resolve)=>{
 //     loadProducts(()=>{
