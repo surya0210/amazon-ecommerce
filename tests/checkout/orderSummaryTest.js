@@ -1,5 +1,5 @@
 import { cart, loadFromStorage } from '../../data/cart.js';
-import { loadProducts } from '../../data/products.js';
+import { loadProducts, loadProductsFetch } from '../../data/products.js';
 import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js'
 
 // 1.how the page looks
@@ -14,9 +14,15 @@ describe('test suite :render order summary',()=>{
     })
     // done makes the test wait till loadProdcuts
     beforeAll((done)=>{
-        loadProducts(()=>{
+        // wih call back way
+        // loadProducts(()=>{
+        //     done();
+        // });
+
+        // with promise way
+        loadProductsFetch().then(()=>{
             done();
-        });
+        })
     })
     afterAll(()=>{
         console.log("End case execution completed");

@@ -83,3 +83,36 @@ export function loadProducts(afterLoadingFunc){
 } 
 
 
+
+
+
+// same process of XMLHttpRequest vs fetch
+
+
+export function loadProductsFetch(){
+  const promise=fetch(
+    'https://supersimplebackend.dev/products'
+    ).then((response)=>{
+    // fetch uses primise we cna use then and wait till it loads and then response.json
+    // is again asynchronous and we  retuen a promise so we use another then  
+      return response.json();
+    }).then ((productsData)=>{
+          products=productsData.map((productDetails)=>{
+          if (productDetails.type==='clothing'){
+            return new Clothing(productDetails);
+          }
+        return new Product(productDetails);
+      });
+      // ;
+  })
+  return promise; 
+}
+
+// loadProductsFetch().then(()=>{
+//   // afterLoadingFunc();
+//   console.log("fdfdfd");
+// });
+
+
+
+
